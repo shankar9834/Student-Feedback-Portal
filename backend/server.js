@@ -1,0 +1,185 @@
+
+const express = require("express");
+const mongoose = require("mongoose");
+const jwt=require('jsonwebtoken');
+const cors = require("cors");
+
+
+const Student=require('./models/Student');
+const Teacher=require('./models/Teacher');
+const Question=require('./models/Question');
+const Feedback=require('./models/Feedback');
+const Submission=require('./models/Submission');
+
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+mongoose.set("strictQuery", false);
+
+ mongoose
+  .connect("mongodb://localhost:27017/studentFeedbackPortal")
+  .then(() => {
+    
+    console.log('connected to backend');
+
+  })
+  .catch((err) => {
+
+    console.log("error connecting database", err);
+    
+  }); 
+
+
+  app.post('/teacher', async (req, res) => {
+    try {
+      const { name, email, password } = req.body;
+       console.log('hiitng teacher')
+      const teacher = new Teacher({
+        name,
+        email,
+        password
+      });
+  
+      await teacher.save();
+      res.status(200).json({ message: 'Teacher created successfully',teacher });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+
+
+  app.post('/student', async (req, res) => {
+    try {
+      console.log('hiitng student')
+
+      const { name, email, password } = req.body;
+      // await Student.deleteMany({});
+      const student = new Student({
+        name,
+        email,
+        password
+      });
+  
+      await student.save();
+      res.status(200).json({ message: 'student created successfully',student });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+  
+  
+  app.post('/teacher/feedback', async (req, res) => {
+    try {
+
+     // console.log(req.body);
+      const { teacher, subject, submission } = req.body;
+      const {questions}=req.body;
+    
+      const question_ids=[]
+   
+       for( var q of questions)
+      {
+     
+           const {question,options}=q;
+       
+           const ques=new Question({question,options});
+             await ques.save()
+             question_ids.push(ques._id);
+           
+      } 
+
+     /*  for(var v of question_ids)
+      {
+        console.log(v._id);
+      } */
+
+     /*  const newFeedback = new Feedback({
+        teacher,
+        subject,
+        questions,
+        student,
+        submission
+      });
+  
+      await newFeedback.save(); */
+      //await Feedback.deleteMany({});
+       const newFeedback = new Feedback({
+        teacher,
+        subject,
+        question:question_ids,
+        submission
+      });
+     
+       
+      await newFeedback.save(); 
+
+      res.json({ message: 'Feedback submitted successfully' ,newFeedback});
+    //  res.json({ message: 'Feedback submitted successfully' });
+
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+
+  
+  app.post('/student/feedback/:feedbackId/:studentId',async(req,res)=>{
+       
+    try{
+      const {feedbackId}=req.params;
+      const {studentId}=req.params;
+     
+      const feedback=await Feedback.findById(feedbackId);
+      const student=await Student.findById(studentId);
+
+      if(!student)
+      {
+           throw Error('student not found');
+      }
+
+      if(!feedback) {
+        
+        throw Error('feedback not found');
+      }
+
+      const {answers}=req.body;
+     
+    
+       if(feedback.submittedBy.includes(studentId))
+       {
+        
+        throw Error('you have already submitted feedback!!');
+       }
+
+         // await Submission.deleteMany({});  
+       
+         const newSubmission=new Submission({feedback_id:feedbackId,student_id:studentId,answers});
+    
+       await newSubmission.save();  
+       feedback.submission.push(newSubmission._id); 
+
+        feedback.submittedBy.push(studentId);
+        await feedback.save(); 
+
+     res.status(200).json({message:'succesfully submitted feedback',feedback});
+
+
+    }
+    catch(err){
+      
+      res.status(400).json({message:err.message})
+    }
+       
+  })
+
+
+
+  
+  app.listen(3005,(req,res)=>{
+    console.log('listening on port 3005');
+  })
