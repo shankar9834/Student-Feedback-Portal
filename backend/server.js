@@ -12,7 +12,14 @@ const Feedback=require('./models/Feedback');
 const Submission=require('./models/Submission');
 
 
+const studentRoutes=require('./routes/studentRoutes');
+const teacherRoutes=require('./routes/teacherRoutes');
+
 const app = express();
+
+
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -33,45 +40,10 @@ mongoose.set("strictQuery", false);
   }); 
 
 
-  app.post('/teacher', async (req, res) => {
-    try {
-      const { name, email, password } = req.body;
-       console.log('hiitng teacher')
-      const teacher = new Teacher({
-        name,
-        email,
-        password
-      });
+  app.use('/student',studentRoutes);
   
-      await teacher.save();
-      res.status(200).json({ message: 'Teacher created successfully',teacher });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
+  app.use('/teacher',teacherRoutes);
 
-
-
-  app.post('/student', async (req, res) => {
-    try {
-      console.log('hiitng student')
-
-      const { name, email, password } = req.body;
-      // await Student.deleteMany({});
-      const student = new Student({
-        name,
-        email,
-        password
-      });
-  
-      await student.save();
-      res.status(200).json({ message: 'student created successfully',student });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
-
-  
   
   app.post('/teacher/feedback', async (req, res) => {
     try {
@@ -93,20 +65,7 @@ mongoose.set("strictQuery", false);
            
       } 
 
-     /*  for(var v of question_ids)
-      {
-        console.log(v._id);
-      } */
-
-     /*  const newFeedback = new Feedback({
-        teacher,
-        subject,
-        questions,
-        student,
-        submission
-      });
-  
-      await newFeedback.save(); */
+     
       //await Feedback.deleteMany({});
        const newFeedback = new Feedback({
         teacher,
