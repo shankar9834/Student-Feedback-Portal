@@ -4,9 +4,9 @@ const Student=require('../models/Student');
 const router=express.Router();
 
 
-router.post('/',async (req, res) => {
+router.post('/register',async (req, res) => {
     try {
-      console.log('hitting student')
+     // console.log('hitting student')
 
       const { name, email, password } = req.body;
       // await Student.deleteMany({});
@@ -15,6 +15,8 @@ router.post('/',async (req, res) => {
         email,
         password
       });
+      
+      console.log(student);
   
       await student.save();
       res.status(200).json({ message: 'student created successfully',student });
