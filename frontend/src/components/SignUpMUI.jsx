@@ -27,7 +27,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUpMUI() {
   const handleSubmit = async(event) => {
    
     event.preventDefault();
@@ -47,7 +47,19 @@ export default function SignUp() {
         }
       })
 
-     // console.log(resp);
+      if(resp.ok)
+      {
+          const res= await resp.json();
+          const id=res.student._id;
+          console.log(res.student)
+          localStorage.setItem('user',id);
+           
+          
+      } 
+     
+
+    
+    
 
   };
 

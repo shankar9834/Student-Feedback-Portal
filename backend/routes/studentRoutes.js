@@ -6,7 +6,8 @@ const router=express.Router();
 
 router.post('/register',async (req, res) => {
     try {
-     // console.log('hitting student')
+     
+       //console.log('hitting student')
      
       const { name, email, password } = req.body;
       // await Student.deleteMany({});
@@ -16,12 +17,17 @@ router.post('/register',async (req, res) => {
         password
       });
       
-      console.log(student);
-  
+    //  console.log(student);
+     
       await student.save();
+    
       res.status(200).json({ message: 'student created successfully',student });
-    } catch (err) {
+    
+    } 
+    catch (err) {
+      
       res.status(500).json({ message: err.message });
+
     }
   })
 

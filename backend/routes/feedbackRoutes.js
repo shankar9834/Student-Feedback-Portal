@@ -1,5 +1,9 @@
 const express=require('express');
+
+
 const Feedback=require('../models/Feedback');
+const Question=require('../models/Question');
+
 
 const router=express.Router();
 
@@ -41,5 +45,45 @@ router.get('/view/:id',async(req,res)=>{
      }
 
 })
+
+router.post('/', async (req, res) => {
+    try {
+
+     // console.log(req.body);
+      const { teacher, subject, submission } = req.body;
+      const {questions}=req.body;
+    
+      const question_ids=[]
+   
+       for( var q of questions)
+      {
+     
+           const {question,options}=q;
+       
+           const ques=new Question({question,options});
+             await ques.save()
+             question_ids.push(ques._id);
+           
+      } 
+
+     
+      //await Feedback.deleteMany({});
+       const newFeedback = new Feedback({
+        teacher,
+        subject,
+        question:question_ids,
+        submission
+      });
+     
+       
+      await newFeedback.save(); 
+
+      res.json({ message: 'Feedback submitted successfully' ,feedback:newFeedback});
+   
+
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
 module.exports=router;

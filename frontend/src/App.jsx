@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
-import Sign from "./components/SignUpMUI";
-import SignUpMUI from "./components/Sign";
+import SignUpMUI from "./components/SignUpMUI";
+import SignIn from "./components/SignIn";
 import Home from "./components/Home";
 import Navbar from './components/Navbar';
 
@@ -21,8 +21,8 @@ function App() {
             <Routes>
               
               <Route path='/' element={<Home />}></Route>
-              <Route path='/signup' element={<Sign />}></Route>
-              <Route path='/login' element={<SignUpMUI />}></Route>
+              <Route path='/login' element={<SignIn />}></Route>
+              <Route path='/signup' element={<SignUpMUI />}></Route>
             
             </Routes>
           </div>
