@@ -14,6 +14,7 @@ const Submission=require('./models/Submission');
 
 const studentRoutes=require('./routes/studentRoutes');
 const teacherRoutes=require('./routes/teacherRoutes');
+const feedbackRoutes=require('./routes/feedbackRoutes');
 
 const app = express();
 
@@ -42,6 +43,7 @@ mongoose.set("strictQuery", false);
   
   app.use('/teacher',teacherRoutes);
 
+  app.use('/feedback',feedbackRoutes);
   
   app.post('/teacher/feedback', async (req, res) => {
     try {
@@ -133,9 +135,6 @@ mongoose.set("strictQuery", false);
     }
        
   })
-
-
-
 
 
   

@@ -7,7 +7,7 @@ const router=express.Router();
 router.post('/register',async (req, res) => {
     try {
      // console.log('hitting student')
-
+     
       const { name, email, password } = req.body;
       // await Student.deleteMany({});
       const student = new Student({
