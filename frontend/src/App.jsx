@@ -11,44 +11,56 @@ import Navbar from './components/Navbar';
 import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
- 
-   const {user,dispatch}=useAuthContext();
- // console.log(user); 
 
-  const handleLogout=(e)=>
-  {
-     localStorage.removeItem('user');
-       dispatch({type:'LOGOUT'})
+  const { user, dispatch } = useAuthContext();
+  // console.log(user); 
+
+  const handleLogout = (e) => {
+    localStorage.removeItem('user');
+    dispatch({ type: 'LOGOUT' })
   }
-  
+
   return (
 
-    
-        <BrowserRouter>
 
-          <div className="App">
-            <Navbar />
-            <Routes>
-              
-              <Route path='/' element={<Home />}></Route>
-              <Route path='/login' 
-                  element={!user?<SignIn />:<Navigate to='/logged'/>}>
+    <BrowserRouter>
 
-                </Route>
-              <Route path='/signup' 
-                  element={!user?<SignUpMUI />:<Navigate to='/logged'/>}>
+      <div className="App">
+        <Navbar />
+        <Routes>
 
-                  </Route>
-                  <Route path='/logged' 
-                  element={user?<h1>welcome back {user.name} !!</h1>:<Navigate to='/signup'/>}>
+          <Route path='/' 
+          
+            element={<Home />}>
 
-                  </Route>
-            </Routes>
-           {user&&<button onClick={handleLogout}>logout</button>} 
-          </div>
-        
-        </BrowserRouter>
+          </Route>
+          
+          <Route path='/login'
+          
+           element={!user ? <SignIn /> : <Navigate to='/logged' />}>
+
+          </Route>
+          
+          <Route path='/signup'
+          
+             element={!user ? <SignUpMUI /> : <Navigate to='/logged' />}>
+
+          </Route>
+
+          <Route path='/logged'
+         
+           element={user ? <h1>welcome back {user.name} !!</h1> : <Navigate to='/signup' />}>
+
+          </Route>
+
+        </Routes>
+
+        {user && <button onClick={handleLogout}>logout</button>}
       
+      </div>
+
+    </BrowserRouter>
+
   );
 }
 
