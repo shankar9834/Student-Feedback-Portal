@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 
 import SignUpMUI from "./components/SignUpMUI";
 import SignIn from "./components/SignIn";
@@ -6,14 +6,24 @@ import Home from "./components/Home";
 import Navbar from './components/Navbar';
 
 
-import { AuthContextProvider } from './context/authContext';
-import { FeedbackContextProvider } from './context/feedbackContext';
+
+
+import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
+ 
+   const {user,dispatch}=useAuthContext();
+ // console.log(user); 
+
+  const handleLogout=(e)=>
+  {
+     localStorage.removeItem('user');
+       dispatch({type:'LOGOUT'})
+  }
+  
   return (
 
-    <AuthContextProvider>
-      <FeedbackContextProvider>
+    
         <BrowserRouter>
 
           <div className="App">
@@ -21,15 +31,24 @@ function App() {
             <Routes>
               
               <Route path='/' element={<Home />}></Route>
-              <Route path='/login' element={<SignIn />}></Route>
-              <Route path='/signup' element={<SignUpMUI />}></Route>
-            
+              <Route path='/login' 
+                  element={!user?<SignIn />:<Navigate to='/logged'/>}>
+
+                </Route>
+              <Route path='/signup' 
+                  element={!user?<SignUpMUI />:<Navigate to='/logged'/>}>
+
+                  </Route>
+                  <Route path='/logged' 
+                  element={user?<h1>welcome back {user.name} !!</h1>:<Navigate to='/signup'/>}>
+
+                  </Route>
             </Routes>
+           {user&&<button onClick={handleLogout}>logout</button>} 
           </div>
         
         </BrowserRouter>
-      </FeedbackContextProvider>
-    </AuthContextProvider>
+      
   );
 }
 

@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import {useAuthContext} from '../hooks/useAuthContext';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -27,13 +29,45 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+
+   const {dispatch}=useAuthContext();
+
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    /* console.log({
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }); */
+   
+     const student={
+      email:data.get('email'),
+      password:data.get('password')
+     }
+
+     const resp=await fetch('http://localhost:3005/student/login',{
+      method:'POST',
+      body: JSON.stringify(student) ,
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if(resp.ok)
+    {
+        const res= await resp.json();
+      
+        //console.log(res.student)
+
+        localStorage.setItem('user',JSON.stringify(res.student));
+         
+        dispatch({type:'LOGIN',payload:res.student}); 
+        
+    } 
+
+
+     
+
   };
 
   return (

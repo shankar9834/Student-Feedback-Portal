@@ -27,13 +27,20 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(()=>{
-    const data=localStorage.getItem('user');
-    const parsed=JSON.parse(data);
-      
-    dispatch({type:'LOGIN',payload:parsed})
 
-   // console.log(data);
- },[]) 
+    const data=localStorage.getItem('user');
+    if(data)
+    {
+      const parsed=JSON.parse(data);
+     // console.log(parsed);
+      dispatch({type:'LOGIN',payload:parsed})
+    }
+    
+      
+    
+
+   
+ },[])  
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
