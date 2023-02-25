@@ -11,7 +11,7 @@ const Home = () => {
     return (
      
      <div>
-        <h1 className="title">Welcome to my website</h1>
+        <h1 className="title">Welcome to Feedback Portal</h1>
       <p className="subtitle">This is the home page</p>
      {!user&&<Link to='/signup'>SignUp</Link>}<br/>
      {!user&&<Link to='/login'>Login</Link>} <br/>

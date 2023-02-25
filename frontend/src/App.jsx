@@ -56,13 +56,13 @@ function App() {
 
           <Route path="/feedback"
 
-            element={<CreateFeedback/>}>
+            element={user?<CreateFeedback/>:<Navigate to="/login"/>}>
                
           </Route>
 
           <Route path="/allfeedbacks"
 
-            element={<ViewAllFeedbacks/>}>
+            element={user?<ViewAllFeedbacks/>:<Navigate to='/signup'/>}>
                
           </Route>
 
