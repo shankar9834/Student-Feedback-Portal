@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 
 
 import CreateFeedback from './components/CreateFeedback';
-
+import ViewAllFeedbacks from './components/ViewAllFeedback';
 
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -57,6 +57,12 @@ function App() {
           <Route path="/feedback"
 
             element={<CreateFeedback/>}>
+               
+          </Route>
+
+          <Route path="/allfeedbacks"
+
+            element={<ViewAllFeedbacks/>}>
                
           </Route>
 

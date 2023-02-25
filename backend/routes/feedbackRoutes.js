@@ -12,7 +12,13 @@ const router=express.Router();
 router.get('/allFeedbacks',async(req,res)=>{
    
     try{
-        const allFeedbacks=await Feedback.find({});
+        //const allFeedbacks=await Feedback.find({});
+        const allFeedbacks=await Feedback.find({})
+                                 .populate({path:'teacher'})
+                                 .populate({path:'submittedBy'})
+                                 .populate({path:'submission'})
+                                 .populate({path:'question'});
+       
 
         if(!allFeedbacks) throw Error("no feedbacks found");
         

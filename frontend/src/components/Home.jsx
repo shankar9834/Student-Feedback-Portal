@@ -15,8 +15,10 @@ const Home = () => {
       <p className="subtitle">This is the home page</p>
      {!user&&<Link to='/signup'>SignUp</Link>}<br/>
      {!user&&<Link to='/login'>Login</Link>} <br/>
-     <Link to='/feedback'>create feedback</Link>
-      
+     
+     <Link to='/feedback'>create feedback</Link><br/>
+     <Link to='/allfeedbacks'>view all feedbacks</Link>
+
      </div>
     );
   };
