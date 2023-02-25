@@ -50,9 +50,10 @@ router.post('/', async (req, res) => {
     try {
 
      // console.log(req.body);
-      const { teacher, subject, submission } = req.body;
+      const { teacher, subject } = req.body;
       const {questions}=req.body;
-    
+
+      const submission=[];
       const question_ids=[]
    
        for( var q of questions)
@@ -77,7 +78,7 @@ router.post('/', async (req, res) => {
      
        
       await newFeedback.save(); 
-
+      // console.log(newFeedback);
       res.json({ message: 'Feedback submitted successfully' ,feedback:newFeedback});
    
 

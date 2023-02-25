@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Navbar from './components/Navbar';
 
 
+import CreateFeedback from './components/CreateFeedback';
 
 
 import { useAuthContext } from './hooks/useAuthContext';
@@ -51,6 +52,12 @@ function App() {
          
            element={user ? <h1>welcome back {user.name} !!</h1> : <Navigate to='/signup' />}>
 
+          </Route>
+
+          <Route path="/feedback"
+
+            element={<CreateFeedback/>}>
+               
           </Route>
 
         </Routes>

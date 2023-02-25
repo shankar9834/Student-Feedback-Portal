@@ -1,3 +1,8 @@
+*{
+  margin:0px;
+  padding: 0px;
+}
+
 .home-page {
     height: 100vh;
     background-size: cover;
