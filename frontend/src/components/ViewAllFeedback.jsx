@@ -2,6 +2,7 @@
 import {useState, useEffect} from 'react'
 
 import "./styles/viewAllFeedbacks.css"
+import Card from './UI/Card';
 
 const ViewAllFeedbacks=()=>{
     const [feedbacks,setFeedbacks]=useState([]);
@@ -30,11 +31,13 @@ const ViewAllFeedbacks=()=>{
      }
 
     return (
+        
         <div className='viewFeedbacks'>
             <h1>All Feedbacks</h1>    
              <div className='feeds'>
               {feedbacks.length>0&&feedbacks.map((feedback,i)=>{
                 return(
+                    <Card>
                     <div key={i} className="feedback">
                         <li className='SRNO'>{i+1}</li>
                         <li className='subject'>
@@ -46,12 +49,14 @@ const ViewAllFeedbacks=()=>{
                         <button onClick={handleView}>view</button>
                         
                     </div>
+                     </Card>
                 )
                })}  
              </div>
                
 
         </div>
+       
     );
      
 }

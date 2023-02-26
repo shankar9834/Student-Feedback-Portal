@@ -70,7 +70,7 @@ const CreateFeedback = () => {
 
 
     return (
-        <div className="createFedback">
+        <div className="createFeedback">
             <h1 className="heading">Create Feedback</h1>
             <div>
            {questionList.map((ques,i)=>{

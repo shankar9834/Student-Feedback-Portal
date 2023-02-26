@@ -10,14 +10,24 @@ const Home = () => {
 
     return (
      
-     <div>
+     <div className='homeWrap'>
         <h1 className="title">Welcome to Feedback Portal</h1>
       <p className="subtitle">This is the home page</p>
-     {!user&&<Link to='/signup'>SignUp</Link>}<br/>
-     {!user&&<Link to='/login'>Login</Link>} <br/>
-     
-     <Link to='/feedback'>create feedback</Link><br/>
-     <Link to='/allfeedbacks'>view all feedbacks</Link>
+     {!user&&<Link className="link" to='/signup'>SignUp</Link>} 
+     <br/>
+     <br/>
+     <br/>
+     {!user&&<Link className="link" to='/login'>Login</Link>} 
+      <br/>
+     <br/>
+     <br/>
+     {user&&<Link className="link" to='/feedback'>create feedback</Link>
+     }
+    <br/>
+     <br/>
+     <br/>
+     {user&& <Link className="link" to='/allfeedbacks'>view all feedbacks</Link>}
+    
 
      </div>
     );

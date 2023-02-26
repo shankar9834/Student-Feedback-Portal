@@ -36,9 +36,6 @@ export const AuthContextProvider = ({ children }) => {
       dispatch({type:'LOGIN',payload:parsed})
     }
     
-      
-    
-
    
  },[])  
 
