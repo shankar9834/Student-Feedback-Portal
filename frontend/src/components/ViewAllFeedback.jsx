@@ -37,7 +37,7 @@ const ViewAllFeedbacks=()=>{
              <div className='feeds'>
               {feedbacks.length>0&&feedbacks.map((feedback,i)=>{
                 return(
-                    <Card>
+                   
                     <div key={i} className="feedback">
                         <li className='SRNO'>{i+1}</li>
                         <li className='subject'>
@@ -49,7 +49,7 @@ const ViewAllFeedbacks=()=>{
                         <button onClick={handleView}>view</button>
                         
                     </div>
-                     </Card>
+                     
                 )
                })}  
              </div>
