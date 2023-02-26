@@ -88,6 +88,10 @@ function App() {
                
           </Route>
 
+          <Route path="/feedback/sno" element={<h1>view feedback</h1>}>
+
+          </Route>
+
         </Routes>
 
         {user && <div className='btndiv'><button className="logout" onClick={handleLogout}>logout</button></div>}

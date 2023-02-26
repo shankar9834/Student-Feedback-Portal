@@ -6,6 +6,7 @@ import Card from './UI/Card';
 
 const ViewAllFeedbacks=()=>{
     const [feedbacks,setFeedbacks]=useState([]);
+  
 
      useEffect(()=>{
         
