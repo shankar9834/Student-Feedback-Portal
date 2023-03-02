@@ -58,7 +58,8 @@ export default function SignUpMUI() {
         
           //console.log(res.student)
 
-          localStorage.setItem('user',JSON.stringify(res.student));
+         // localStorage.setItem('user',JSON.stringify(res.student));
+          localStorage.setItem('user',JSON.stringify(res));
 
           dispatch({type:'LOGIN',payload:res.student});
           

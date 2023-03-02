@@ -85,3 +85,15 @@
         
       }
       
+      .feedback input[type="text"] {
+  
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 18px;
+        padding: 5px 10px;
+        width: 60%;
+    
+        /*done by me*/
+       
+        
+      }

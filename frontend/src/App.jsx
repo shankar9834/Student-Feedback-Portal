@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 //testing starts
 
 //import Navbar from './components/testing/Navbar';
-
+//import SignIn from "./components/testing/SignIn"
 
 //testing ends
 
@@ -78,7 +78,7 @@ function App() {
 
           <Route path="/feedback"
 
-            element={user?<CreateFeedback/>:<Navigate to="/login"/>}>
+            element={user&&user.teacher?<CreateFeedback/>:<Navigate to="/login"/>}>
                
           </Route>
 

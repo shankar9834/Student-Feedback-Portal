@@ -20,8 +20,11 @@ router.post('/register',async (req, res) => {
     //  console.log(student);
      
       await student.save();
-    
-      res.status(200).json({ message: 'student created successfully',student });
+      
+       
+      
+    //  res.status(200).json({ message: 'student created successfully',student });
+      res.status(200).json({ student });
     
     } 
     catch (err) {
@@ -36,13 +39,13 @@ router.post('/register',async (req, res) => {
    
   try{
     const {email,password}=req.body;
-    
+    //console.log('hiitn')
     const student=await Student.findOne({email:email,password:password});
- 
+   
     if(!student){
       throw Error("email or password is wrong");
     }
-
+ 
     res.status(200).json({student});
 
   }

@@ -3,10 +3,10 @@ const Teacher=require('../models/Teacher');
 
 const router=express.Router();
 
-router.post('/',async (req, res) => {
+router.post('/register',async (req, res) => {
     try {
       const { name, email, password } = req.body;
-       console.log('hitting teacher')
+       //console.log('hitting teacher')
       const teacher = new Teacher({
         name,
         email,
@@ -14,13 +14,32 @@ router.post('/',async (req, res) => {
       });
   
       await teacher.save();
-      res.status(200).json({ message: 'Teacher created successfully',teacher });
+      res.status(200).json({ teacher });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   })
 
+router.post('/login',async(req,res)=>{
 
+  try{
+
+
+    const {email,password}=req.body;
+     
+    const teacher=await Teacher.findOne({email,password})
+
+    if(!teacher){
+      throw Error("email or password is wrong");
+    }
+
+    res.status(200).json({teacher});
+
+  }
+  catch(err){
+    res.status(500).json({message:err.message})
+  }
+})
   
 
   

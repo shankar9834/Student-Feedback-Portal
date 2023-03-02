@@ -59,9 +59,9 @@ export default function SignIn() {
       
         //console.log(res.student)
 
-        localStorage.setItem('user',JSON.stringify(res.student));
-         
-        dispatch({type:'LOGIN',payload:res.student}); 
+      //  localStorage.setItem('user',JSON.stringify(res.student));
+      localStorage.setItem('user',JSON.stringify(res))
+        dispatch({type:'LOGIN',payload:res}); 
         
     } 
 
