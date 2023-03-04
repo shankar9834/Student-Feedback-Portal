@@ -3,7 +3,8 @@ const express=require('express');
 
 const Feedback=require('../models/Feedback');
 const Question=require('../models/Question');
-
+const Student=require('../models/Student');
+const Submission=require('../models/Submission');
 
 const router=express.Router();
 
@@ -56,6 +57,7 @@ router.post('/', async (req, res) => {
     try {
 
      // console.log(req.body);
+   //  console.log(req.body);
       const { teacher, subject } = req.body;
       const {questions}=req.body;
 
@@ -92,5 +94,60 @@ router.post('/', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
+
+
+  router.post('/submitFeedback',async(req,res)=>{
+       
+    try{
+   
+     const {feedbackId,studentId}=req.body
+      const feedback=await Feedback.findById(feedbackId);
+      const student=await Student.findById(studentId);
+     
+      if(!student)
+      {
+           throw Error('student not found');
+      }
+
+      if(!feedback) {
+        
+        throw Error('feedback not found');
+      }
+
+   
+      // write logic for , if student has already submitted the feedback 
+      //i.e studentId exists in submitted by attribute of feedback
+
+      
+      const {answers}=req.body;
+     
+    
+       if(feedback.submittedBy.includes(studentId))
+       {
+        
+        throw Error('you have already submitted feedback!!');
+       }
+
+         // await Submission.deleteMany({});  
+       
+         const newSubmission=new Submission({feedback_id:feedbackId,student_id:studentId,answers});
+    
+       await newSubmission.save();  
+       feedback.submission.push(newSubmission._id); 
+
+        feedback.submittedBy.push(studentId);
+        await feedback.save(); 
+
+     res.status(200).json({message:'succesfully submitted feedback',feedback});
+
+
+    }
+    catch(err){
+      
+      res.status(400).json({message:err.message})
+    }
+  // console.log(req.body)
+       
+  })  
 
 module.exports=router;
