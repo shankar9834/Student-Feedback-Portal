@@ -97,6 +97,22 @@ mongoose.set("strictQuery", false);
        
   })
 
+   app.get('/deleteAllData',async(req,res)=>{
+
+      try{
+        await Student.deleteMany({});
+        await Question.deleteMany({});
+        await Teacher.deleteMany({});
+        await Submission.deleteMany({});
+        await Feedback.deleteMany({});
+       
+        res.status(200).json({message:'deleted all data from database'})
+      }
+      catch(err){
+        res.status(400).json({message:err.message})
+      }
+        
+   })
 
   
   app.listen(3005,(req,res)=>{

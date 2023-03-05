@@ -24,7 +24,7 @@ router.post('/login',async(req,res)=>{
 
   try{
 
-    console.log("hitting login teacher")
+   // console.log("hitting login teacher")
     const {email,password}=req.body;
     
     const teacher=await Teacher.findOne({email,password})
