@@ -10,6 +10,7 @@ const Teacher=require('./models/Teacher');
 const Question=require('./models/Question');
 const Feedback=require('./models/Feedback');
 const Submission=require('./models/Submission');
+const Notification=require('./models/Notification');
 
 
 const studentRoutes=require('./routes/studentRoutes');
@@ -113,7 +114,34 @@ mongoose.set("strictQuery", false);
       }
         
    })
+   
 
+   app.get('/allNotifications',async(req,res)=>{
+ 
+    try{
+      const allNotifications=await Notification.find({}).sort({createdAt:-1})
+       
+     // console.log(allNotifications);
+
+      res.status(200).json({notifications:allNotifications})
+    } 
+    catch(err){
+      res.status(400).json({message:err.message})
+    }  
+   
+
+
+   })
+
+
+   app.post('/notification',async(req,res)=>{
+      console.log("hitting notf")
+   
+       const message='notification created succesfully'
+      const notification=new Notification({message})
+
+      res.status(200).json({notification})
+   })
   
   app.listen(3005,(req,res)=>{
     console.log('listening on port 3005');

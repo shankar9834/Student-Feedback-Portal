@@ -5,6 +5,9 @@ const Feedback=require('../models/Feedback');
 const Question=require('../models/Question');
 const Student=require('../models/Student');
 const Submission=require('../models/Submission');
+const Notification=require('../models/Notification')
+const Teacher =require('../models/Teacher')
+
 
 const router=express.Router();
 
@@ -74,6 +77,17 @@ router.post('/', async (req, res) => {
              question_ids.push(ques._id);
            
       } 
+        
+      const foundTeacher=await Teacher.findById(teacher)
+     // console.log(foundTeacher)
+      
+     const message=`${foundTeacher.name} created feedback for ${subject}`
+        
+       const notification=new Notification({message});
+      // console.log(notification)
+       await notification.save()
+       
+
 
      
       //await Feedback.deleteMany({});
@@ -87,6 +101,9 @@ router.post('/', async (req, res) => {
        
       await newFeedback.save(); 
       // console.log(newFeedback);
+
+      
+
       res.json({ message: 'Feedback submitted successfully' ,feedback:newFeedback});
    
 
