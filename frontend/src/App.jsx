@@ -18,7 +18,7 @@ import "./components/styles/logoutbutton.css"
 
 import CreateFeedback from './components/CreateFeedback';
 import ViewAllFeedbacks from './components/ViewAllFeedback';
-
+import PieChart from './components/PieChart';
 import { useAuthContext } from './hooks/useAuthContext';
 
 
@@ -91,6 +91,8 @@ function App() {
           <Route path="/feedback/sno" element={<h1>view feedback</h1>}>
 
           </Route>
+
+          <Route path="/chart" element={<PieChart/>}></Route>
 
         </Routes>
 

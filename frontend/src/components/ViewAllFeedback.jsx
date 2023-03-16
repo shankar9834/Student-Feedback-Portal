@@ -2,7 +2,7 @@
 import {useState, useEffect} from 'react'
 
 import "./styles/viewAllFeedbacks.css"
-import Card from './UI/Card';
+
 
 const ViewAllFeedbacks=()=>{
     const [feedbacks,setFeedbacks]=useState([]);

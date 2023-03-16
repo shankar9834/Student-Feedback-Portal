@@ -122,7 +122,7 @@ mongoose.set("strictQuery", false);
       const allNotifications=await Notification.find({}).sort({createdAt:-1})
        
      // console.log(allNotifications);
-
+        
       res.status(200).json({notifications:allNotifications})
     } 
     catch(err){

@@ -6,7 +6,8 @@ const Question=require('../models/Question');
 const Student=require('../models/Student');
 const Submission=require('../models/Submission');
 const Notification=require('../models/Notification')
-const Teacher =require('../models/Teacher')
+const Teacher =require('../models/Teacher');
+// const { route } = require('./studentRoutes');
 
 
 const router=express.Router();
@@ -166,5 +167,33 @@ router.post('/', async (req, res) => {
   // console.log(req.body)
        
   })  
+
+
+ 
+  
+ router.get('/myFeedbacks/:teacherId',async(req,res)=>{
+
+  try{
+    //const allFeedbacks=await Feedback.find({});
+   // console.log('htiing myfeedbacks')
+   // console.log(req.params)
+    const {teacherId}=req.params;
+    const allFeedbacks=await Feedback.find({teacher:teacherId})
+                             .populate({path:'teacher'})
+                             .populate({path:'submittedBy'})
+                             .populate({path:'submission'})
+                             .populate({path:'question'});
+   //console.log(allFeedbacks)
+
+    if(!allFeedbacks) throw Error("no feedbacks found");
+    
+    res.status(200).json({allFeedbacks});
+}
+catch(err)
+{
+    res.status(500).json({ message: err.message });
+}
+
+ }) 
 
 module.exports=router;
