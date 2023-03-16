@@ -38,6 +38,7 @@ router.get('/allFeedbacks',async(req,res)=>{
 })
 
 
+
 router.get('/view/:id',async(req,res)=>{
    
      try{
@@ -56,6 +57,9 @@ router.get('/view/:id',async(req,res)=>{
      }
 
 })
+
+
+// creating feedback
 
 router.post('/', async (req, res) => {
     try {
@@ -114,6 +118,8 @@ router.post('/', async (req, res) => {
   });
 
 
+
+
   router.post('/submitFeedback',async(req,res)=>{
        
     try{
@@ -121,7 +127,9 @@ router.post('/', async (req, res) => {
      const {feedbackId,studentId}=req.body
       const feedback=await Feedback.findById(feedbackId);
       const student=await Student.findById(studentId);
-     
+      
+      const {text}=req.body;
+
       if(!student)
       {
            throw Error('student not found');
@@ -147,17 +155,31 @@ router.post('/', async (req, res) => {
        }
 
          // await Submission.deleteMany({});  
-       
-         const newSubmission=new Submission({feedback_id:feedbackId,student_id:studentId,answers});
-    
-       await newSubmission.save();  
-       feedback.submission.push(newSubmission._id); 
+      
+         if(text.length>0)
+         {
+          const newSubmission=new Submission({feedback_id:feedbackId,student_id:studentId,answers,text});
+          await newSubmission.save();  
+          feedback.submission.push(newSubmission._id); 
+   
+           feedback.submittedBy.push(studentId);
+           await feedback.save(); 
+   
+        res.status(200).json({message:'succesfully submitted feedback',feedback});
 
-        feedback.submittedBy.push(studentId);
-        await feedback.save(); 
+         }
+         else{
+          const newSubmission=new Submission({feedback_id:feedbackId,student_id:studentId,answers});
+          await newSubmission.save();  
+          feedback.submission.push(newSubmission._id); 
+   
+           feedback.submittedBy.push(studentId);
+           await feedback.save(); 
+   
+        res.status(200).json({message:'succesfully submitted feedback',feedback});
 
-     res.status(200).json({message:'succesfully submitted feedback',feedback});
-
+         }
+        
 
     }
     catch(err){

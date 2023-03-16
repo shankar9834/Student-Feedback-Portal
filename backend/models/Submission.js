@@ -25,7 +25,11 @@ const SubmissionSchema=new Schema({
       
             selectedOption: String,
           }
-    ]
+    ],
+    text:{
+      type:String
+      
+    }
     
 
 },{timestamps:true})
