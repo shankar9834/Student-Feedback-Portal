@@ -39,7 +39,7 @@ router.get('/allFeedbacks',async(req,res)=>{
 
 
 
-router.get('/view/:id',async(req,res)=>{
+/* router.get('/view/:id',async(req,res)=>{
    
      try{
 
@@ -56,7 +56,7 @@ router.get('/view/:id',async(req,res)=>{
         res.status(500).json({message:err.message});
      }
 
-})
+}) */
 
 
 // creating feedback
@@ -108,11 +108,12 @@ router.post('/', async (req, res) => {
       // console.log(newFeedback);
 
       
-
+      
       res.json({ message: 'Feedback submitted successfully' ,feedback:newFeedback});
    
 
     } catch (err) {
+     // console.log("err")
       res.status(500).json({ message: err.message });
     }
   });
@@ -161,7 +162,7 @@ router.post('/', async (req, res) => {
           const newSubmission=new Submission({feedback_id:feedbackId,student_id:studentId,answers,text});
           await newSubmission.save();  
           feedback.submission.push(newSubmission._id); 
-   
+          // console.log(newSubmission);
            feedback.submittedBy.push(studentId);
            await feedback.save(); 
    
@@ -217,5 +218,25 @@ catch(err)
 }
 
  }) 
+
+
+router.get('/active/:feedback_id',async(req,res)=>{
+    
+  try{
+    const {feedback_id}=req.params;
+  
+    const feedback=await Feedback.findById(feedback_id);
+    feedback.isActive=!feedback.isActive;
+    feedback.save();
+    //console.log(feedback)
+    res.status(200).json({feedback});
+  }
+  catch(err){
+    res.status(500).json({ message: err.message });
+    }
+    
+    
+
+})
 
 module.exports=router;

@@ -18,30 +18,12 @@ const FeedbackSchema = new mongoose.Schema({
       required:true
     },
     
-    /* questions: [QuestionSchema] */
     question:[{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Question'
     }]
     ,
     
-    
-
-   /*  submission: [{
-      student: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
-      }, 
-      answers:[{
-        question: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Question'
-          },
-  
-        selectedOption: String,
-      }]       
-   }] */
-
    submission:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Submission'
@@ -53,7 +35,12 @@ const FeedbackSchema = new mongoose.Schema({
       type:mongoose.Schema.Types.ObjectId,
       ref: 'Student'
     }
-   ]
+   ],
+
+   isActive:{
+    type:Boolean,
+    default:true
+   }
 
 
   },{timestamps:true});

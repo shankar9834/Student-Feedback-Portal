@@ -49,7 +49,7 @@ mongoose.set("strictQuery", false);
   
 
   
-  app.post('/student/submitFeedback/:feedbackId/:studentId',async(req,res)=>{
+  /* app.post('/student/submitFeedback/:feedbackId/:studentId',async(req,res)=>{
        
     try{
       const {feedbackId}=req.params;
@@ -96,7 +96,10 @@ mongoose.set("strictQuery", false);
       res.status(400).json({message:err.message})
     }
        
-  })
+  }) */
+
+
+  
 
    app.get('/deleteAllData',async(req,res)=>{
 
@@ -106,6 +109,7 @@ mongoose.set("strictQuery", false);
         await Teacher.deleteMany({});
         await Submission.deleteMany({});
         await Feedback.deleteMany({});
+        await Notification.deleteMany({})
        
         res.status(200).json({message:'deleted all data from database'})
       }
@@ -135,7 +139,7 @@ mongoose.set("strictQuery", false);
 
 
    app.post('/notification',async(req,res)=>{
-      console.log("hitting notf")
+      // console.log("hitting notf")
    
        const message='notification created succesfully'
       const notification=new Notification({message})
@@ -143,6 +147,7 @@ mongoose.set("strictQuery", false);
       res.status(200).json({notification})
    })
   
+
   app.listen(3005,(req,res)=>{
     console.log('listening on port 3005');
   })

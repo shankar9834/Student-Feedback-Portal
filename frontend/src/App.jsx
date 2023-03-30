@@ -5,6 +5,7 @@ import SignIn from "./components/SignIn";
 import Home from "./components/Home";
 import Navbar from './components/Navbar';
 
+import Table from './components/Table';
 
 //testing starts
 
@@ -93,6 +94,7 @@ function App() {
           </Route>
 
           <Route path="/chart" element={<PieChart/>}></Route>
+          <Route path="/table" element={<Table/>}></Route>
 
         </Routes>
 
