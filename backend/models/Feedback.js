@@ -4,7 +4,7 @@ const Teacher=require('./Teacher');
 const Question=require('./Question');
 const Student=require('./Student');
 const Submission=require('./Submission');
-
+const Classes=require('./Classes')
 
 const FeedbackSchema = new mongoose.Schema({
    
@@ -40,6 +40,16 @@ const FeedbackSchema = new mongoose.Schema({
    isActive:{
     type:Boolean,
     default:true
+   },
+
+   branch_id:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Classes'
+   },
+   summary:{
+    type:String,
+    default:"",
+    required:false
    }
 
 
