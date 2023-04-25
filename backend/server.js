@@ -174,6 +174,9 @@ mongoose.set("strictQuery", false);
       
   })
   
+  app.get('/',(req,res)=>{
+    res.send('hello world');
+  })
   app.listen(3005,(req,res)=>{
     console.log('listening on port 3005');
   })
