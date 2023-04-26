@@ -11,6 +11,12 @@ router.post('/register',async (req, res) => {
      
       const { name, email, password } = req.body;
       // await Student.deleteMany({});
+
+      if(!email.endsWith('@iiitl.ac.in'))
+      {
+        throw Error("Please register with institutes email id");
+      }
+      
       const student = new Student({
         name,
         email,

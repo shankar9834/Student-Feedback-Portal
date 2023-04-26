@@ -7,6 +7,12 @@ router.post('/register',async (req, res) => {
     try {
       const { name, email, password } = req.body;
        //console.log('hitting teacher')
+
+       if(!email.endsWith('@iiitl.ac.in'))
+      {
+        throw Error("Please register with institutes email id");
+      }
+      
       const teacher = new Teacher({
         name,
         email,
